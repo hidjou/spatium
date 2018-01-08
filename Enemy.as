@@ -1,0 +1,5 @@
+﻿package{		import flash.display.MovieClip;	import flash.events.*;
+			public class Enemy extends MovieClip{		//Variables		private var _root:Object;		//ene mov spd		private var speed:int = 5;				public function Enemy(){						addEventListener(Event.ADDED, beginClass);						addEventListener(Event.ENTER_FRAME, eFrame);		}		private function beginClass(event:Event):void{			_root = MovieClip(root);		}		private function eFrame(event:Event):void{			//bullet movement			y += speed;			//removing buttel			if(this.y > stage.stageHeight){				removeEventListener(Event.ENTER_FRAME, eFrame);				_root.removeChild(this);			}						for(var i:int = 0;i<_root.bulletContainer.numChildren;i++){								var bulletTarget:MovieClip = _root.bulletContainer.getChildAt(i);												if(hitTestObject(bulletTarget)){										removeEventListener(Event.ENTER_FRAME, eFrame);					_root.removeChild(this);
+					
+					_root.Enemydie.play();
+															_root.bulletContainer.removeChild(bulletTarget);					bulletTarget.removeListeners();				}			}									if(hitTestObject(_root.mcMain)){								trace('get rekt!');			}		}	}}
